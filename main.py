@@ -8,6 +8,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib
+from argparse import ArgumentParser
 
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
@@ -378,6 +379,10 @@ def wilcoxon_holm(alpha=0.05, df_perf=None):
     # return the p-values and the average ranks
     return p_values, average_ranks, max_nb_datasets
 
-df_perf = pd.read_csv('DefaultvsTunedvsEnsembleCritDiffAcc.csv',index_col=False)
+if __name__=="__main__":
+    parser=ArgumentParser()
+    parser.add_argument("--filename",type=str)
+    args=parser.parse_args()
+    df_perf = pd.read_csv(args.filename,index_col=False)
 
-draw_cd_diagram(df_perf=df_perf, title='Accuracy', labels=True)
+    draw_cd_diagram(df_perf=df_perf, title='Accuracy', labels=True)
